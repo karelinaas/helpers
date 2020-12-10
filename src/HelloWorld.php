@@ -1,5 +1,5 @@
 <?php
-
+namespace PhpCraftsman;
 
 class HelloWorld
 {
