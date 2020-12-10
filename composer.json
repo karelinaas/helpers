@@ -3,7 +3,7 @@
     "type": "library",
     "description": "Assistant package",
     "license": "GPL-3.0",
-    "minimum-stability": "stable",
+    "minimum-stability": "dev",
     "authors": [
         {
             "name": "Sergey Andrianov",

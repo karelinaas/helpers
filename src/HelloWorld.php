@@ -3,7 +3,7 @@ namespace PhpCraftsman;
 
 class HelloWorld
 {
-    public function __invoke()
+    public function test()
     {
         return 'Hello world';
     }
