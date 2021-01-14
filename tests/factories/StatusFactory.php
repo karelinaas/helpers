@@ -4,7 +4,7 @@
 namespace Tests\Factories;
 
 use Illuminate\Database\Eloquent\Factories\Factory;
-use Tests\Feature\Status;
+use Tests\Unit\Status;
 
 class StatusFactory extends Factory
 {

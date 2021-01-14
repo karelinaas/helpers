@@ -14,7 +14,7 @@
     "laravel/framework": "^8.0",
     "php": "^7.4",
     "ext-pdo": "*",
-    "illuminate/database": "^6.0|^7.0|^8.0",
+    "illuminate/database": "^8.0",
     "doctrine/dbal": "^2.8|^3.0"
   },
   "require-dev": {

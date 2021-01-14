@@ -3,12 +3,12 @@
 
 namespace Tests\Factories;
 
+use Tests\Unit\FilterModel;
 use Illuminate\Database\Eloquent\Factories\Factory;
-use Tests\Unit\EloquentStub;
 
-class EloquentStubFactory extends Factory
+class FilterModelFactory extends Factory
 {
-    protected $model = EloquentStub::class;
+    protected $model = FilterModel::class;
 
     /**
      * @return array

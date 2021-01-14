@@ -1,6 +1,6 @@
 <?php
 
-namespace Tests\Feature;
+namespace Tests\Unit;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use PhpCraftsman\Traits\HasStatuses;
