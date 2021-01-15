@@ -3,13 +3,16 @@
 namespace Tests\Unit;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Foundation\Testing\RefreshDatabase;
+use Mockery;
+use PhpCraftsman\Models\Status;
 use PhpCraftsman\Traits\HasStatuses;
-use Tests\Factories\EloquentStubFactory;
-use Tests\Factories\StatusFactory;
 use Tests\TestCase;
 
 class HasStatusTest extends TestCase
 {
+    use RefreshDatabase;
+
     protected function setUp(): void
     {
         parent::setUp();
@@ -31,11 +34,13 @@ class HasStatusTest extends TestCase
      */
     public function testHasStatus()
     {
-        $post = EloquentStub::factory()->create([
-            'status_id' => Status::where('name','waiting')->first()->id
-        ]);
+        $mock = Mockery::mock(EloquentStub::class)->makePartial();
 
-        $this->assertTrue($post->hasStatus('waiting'));
+        $mock->shouldReceive('getAttribute')
+            ->with('status_id')
+            ->andReturn(Status::where('name','waiting')->first()->id);
+
+        $this->assertTrue($mock->hasStatus('waiting'));
     }
 
     /**
@@ -45,11 +50,13 @@ class HasStatusTest extends TestCase
      */
     public function testHasStatuses()
     {
-        $model = EloquentStub::factory()->create([
-            'status_id' => Status::where('name','process')->first()->id
-        ]);
+        $mock = Mockery::mock(EloquentStub::class)->makePartial();
 
-        $this->assertTrue($model->hasStatus([
+        $mock->shouldReceive('getAttribute')
+            ->with('status_id')
+            ->andReturn(Status::where('name','process')->first()->id);
+
+        $this->assertTrue($mock->hasStatus([
             'waiting',
             'process',
         ]));
@@ -60,19 +67,13 @@ class HasStatusTest extends TestCase
 class EloquentStub extends \Illuminate\Database\Eloquent\Model
 {
     use HasStatuses;
-    use HasFactory;
 
     public function status()
     {
         return $this->belongsTo('Status');
     }
-
-    protected static function newFactory()
-    {
-        return EloquentStubFactory::new();
-    }
 }
-
+/*
 class Status extends \Illuminate\Database\Eloquent\Model
 {
     use HasFactory;
@@ -81,4 +82,4 @@ class Status extends \Illuminate\Database\Eloquent\Model
     {
         return StatusFactory::new();
     }
-}
+}*/
