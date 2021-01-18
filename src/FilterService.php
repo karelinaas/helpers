@@ -30,7 +30,6 @@ abstract class FilterService
     public function apply()
     {
         $this->prepareFiltering();
-
         foreach ($this->filters() as $filter => $value) {
             if (method_exists($this, $filter)) {
                 $this->$filter($value);

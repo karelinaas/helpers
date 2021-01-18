@@ -2,8 +2,10 @@
 
 namespace Tests\Unit;
 
+use Illuminate\Database\Eloquent\Builder as EloquentBuilder;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
-use Tests\Factories\FilterModelFactory;
+use Illuminate\Http\Request;
+use PhpCraftsman\FilterService;
 use Tests\TestCase;
 
 class FilterTest extends TestCase
@@ -20,7 +22,14 @@ class FilterTest extends TestCase
      */
     public function testHasStatus()
     {
-        self::assertTrue(true);
+        $queryBuilder = FilterModel::query();
+        $request = new Request();
+
+        $request->replace(['search'=> 'test']);
+
+        $queryBuilder = (new Filter($queryBuilder, $request))->apply();
+
+        $this->assertSame('select * from "filter_models" where ("name" ilike ? or "version" ilike ?)', $queryBuilder->toSql());
     }
 
 }
@@ -29,8 +38,17 @@ class FilterModel extends \Illuminate\Database\Eloquent\Model
 {
     use HasFactory;
 
-    protected static function newFactory()
+    protected $fillable = [
+        'id'
+    ];
+}
+class Filter extends FilterService
+{
+    public function search($value): void
     {
-        return FilterModelFactory::new();
+        $this->builder->where(function (EloquentBuilder $query) use ($value) {
+            $query->where('name', 'ilike', '%' . trim($value) . '%')
+                ->orWhere('version', 'ilike', '%' . trim($value) . '%');
+        });
     }
 }
