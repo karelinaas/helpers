@@ -3,6 +3,7 @@
 namespace Tests;
 
 use Illuminate\Database\Schema\Blueprint;
+use Illuminate\Foundation\Application;
 use Illuminate\Foundation\Testing\DatabaseMigrations;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Support\Facades\Schema;
@@ -23,12 +24,13 @@ class TestCase extends OrchestraTestCase
     {
         parent::setUp();
         $this->withFactories(__DIR__.'/../database/factories');
+        $this->loadMigrationsFrom(__DIR__.'/database/migrations');
     }
 
     /**
      * Get package providers.
      *
-     * @param  \Illuminate\Foundation\Application  $app
+     * @param  Application  $app
      *
      * @return array
      */

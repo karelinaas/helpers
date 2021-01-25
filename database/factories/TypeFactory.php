@@ -1,13 +1,13 @@
 <?php
 
-namespace Tests\Factories;
+namespace Database\Factories;
 
 use Illuminate\Database\Eloquent\Factories\Factory;
-use PhpCraftsman\Models\Status;
+use Tests\Unit\Type;
 
-class StatusFactory extends Factory
+class TypeFactory extends Factory
 {
-    protected $model = Status::class;
+    protected $model = Type::class;
 
     /**
      * @return array

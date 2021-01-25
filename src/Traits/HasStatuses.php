@@ -10,10 +10,34 @@ use Illuminate\Support\Arr;
 /**
  * Trait HasStatuses
  * @property int $status_id
+ * @property int $type_id
  * @package App\Traits
  */
 trait HasStatuses
 {
+    /**
+     * @param mixed ...$names
+     * @return bool
+     * @throws Exception
+     */
+    public function hasType(...$names){
+
+        if (!$this instanceof Model) {
+            throw new Exception("Only applicable to model.");
+        }
+
+        $names = is_array($names) ? Arr::flatten($names) : func_get_args();
+
+        $statuses = app('type')->whereIn('name', $names)->pluck('id');
+
+        if ($statuses->isEmpty()){
+            $names = implode("|",$names);
+            throw new Exception("The status `{$names}` is an invalid status.");
+        }
+
+        return  in_array($this->type_id, $statuses->toArray());
+    }
+
     /**
      * @param mixed ...$names
      * @return bool
