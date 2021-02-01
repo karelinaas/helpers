@@ -4,17 +4,13 @@ namespace Tests\Unit;
 
 use Illuminate\Database\Eloquent\Builder as EloquentBuilder;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Model;
 use Illuminate\Http\Request;
 use PhpCraftsman\FilterService;
 use Tests\TestCase;
 
 class FilterTest extends TestCase
 {
-    protected function setUp(): void
-    {
-        parent::setUp();
-    }
-
     /**
      * A basic test example.
      *
@@ -34,7 +30,7 @@ class FilterTest extends TestCase
 
 }
 
-class FilterModel extends \Illuminate\Database\Eloquent\Model
+class FilterModel extends Model
 {
     use HasFactory;
 
