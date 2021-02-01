@@ -10,11 +10,6 @@ use Tests\TestCase;
 
 class FilterTest extends TestCase
 {
-    protected function setUp(): void
-    {
-        parent::setUp();
-    }
-
     /**
      * A basic test example.
      *
