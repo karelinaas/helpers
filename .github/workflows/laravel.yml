@@ -10,12 +10,12 @@ jobs:
     name: PHPStan
     runs-on: ubuntu-latest
       steps:
-        - name: Checkout
-          uses: actions/checkout@v2
-        - name: PHPStan
-          uses: docker://oskarstark/phpstan-ga
-          with:
-            args: analyse -l 5 -c /var/www/phpstan.neon
+      - name: Checkout
+        uses: actions/checkout@v2
+      - name: PHPStan
+        uses: docker://oskarstark/phpstan-ga
+        with:
+          args: analyse -l 5 -c /var/www/phpstan.neon
 
   laravel-tests:
     name: PhpUnit
