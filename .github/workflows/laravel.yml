@@ -37,7 +37,7 @@ jobs:
         uses: php-actions/phpunit@dynamic-docker
         with:
           bootstrap: vendor/autoload.php
-          configuration: test/phpunit.xml
+          configuration: phpunit.xml
           args: --coverage-text
 
       - name: Dynamic Badges
