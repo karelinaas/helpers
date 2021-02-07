@@ -19,9 +19,7 @@ jobs:
         run: composer install   
       
       - name: PHPStan
-        uses: ./vendor/bin/phpstan 
-        with:
-            args: analyse
+        run: vendor/bin/phpstan analyse -l 5
 
   laravel-tests:
     name: PhpUnit
