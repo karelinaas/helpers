@@ -3,6 +3,7 @@
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
+use PhpCraftsman\Models\Type;
 
 class CreateTypeTable extends Migration
 {
@@ -11,7 +12,7 @@ class CreateTypeTable extends Migration
      */
     protected function table(): string
     {
-        return (new \Tests\Unit\Type())->getTable();
+        return (new Type())->getTable();
     }
 
     public function up()

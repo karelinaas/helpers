@@ -3,7 +3,7 @@
 namespace Database\Factories;
 
 use Illuminate\Database\Eloquent\Factories\Factory;
-use Tests\Unit\Type;
+use PhpCraftsman\Models\Type;
 
 class TypeFactory extends Factory
 {

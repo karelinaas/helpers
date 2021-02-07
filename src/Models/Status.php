@@ -9,6 +9,11 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
+/**
+ * Class Status
+ *
+ * @package PhpCraftsman\Models
+ */
 class Status extends Model
 {
     use SoftDeletes;
@@ -28,16 +33,17 @@ class Status extends Model
     /**
      * @return HasMany
      */
-    public function children()
+    public function children(): HasMany
     {
         return $this->hasMany(Status::class, 'state_id')->with('children')->withoutGlobalScope('parents');
     }
 
     /**
-     * @param $value
+     * @param string $value
+     *
      * @return string
      */
-    public function getNameAttribute($value): string
+    public function getNameAttribute(string $value): string
     {
         return strtolower($value);
     }

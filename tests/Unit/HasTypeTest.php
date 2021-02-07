@@ -2,10 +2,11 @@
 
 namespace Tests\Unit;
 
-use Database\Factories\TypeFactory;
-use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Mockery;
+use PhpCraftsman\Models\Type;
 use PhpCraftsman\Traits\HasStatuses;
 use Tests\TestCase;
 
@@ -37,7 +38,7 @@ class HasTypeTest extends TestCase
      */
     public function testHasStatus()
     {
-        $mock = Mockery::mock(TypeStub::class)->makePartial();
+        $mock = Mockery::mock(Stub::class)->makePartial();
 
         $mock->shouldReceive('getAttribute')
             ->with('type_id')
@@ -53,7 +54,7 @@ class HasTypeTest extends TestCase
      */
     public function testHasStatuses()
     {
-        $mock = Mockery::mock(TypeStub::class)->makePartial();
+        $mock = Mockery::mock(Stub::class)->makePartial();
 
         $mock->shouldReceive('getAttribute')
             ->with('type_id')
@@ -67,22 +68,15 @@ class HasTypeTest extends TestCase
 
 }
 
-class TypeStub extends \Illuminate\Database\Eloquent\Model
+class Stub extends Model
 {
     use HasStatuses;
 
-    public function type()
+    /**
+     * @return BelongsTo
+     */
+    public function type(): BelongsTo
     {
-        return $this->belongsTo('Type');
-    }
-}
-
-class Type extends \Illuminate\Database\Eloquent\Model
-{
-    use HasFactory;
-
-    protected static function newFactory()
-    {
-        return TypeFactory::new();
+        return $this->belongsTo(Type::class);
     }
 }

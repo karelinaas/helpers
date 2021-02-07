@@ -2,7 +2,9 @@
 
 namespace Tests\Unit;
 
+use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Model;
 use Illuminate\Http\Request;
 use PhpCraftsman\SortService;
 use Tests\TestCase;
@@ -33,7 +35,7 @@ class SortTest extends TestCase
 
 }
 
-class SortModel extends \Illuminate\Database\Eloquent\Model
+class SortModel extends Model
 {
     use HasFactory;
 
@@ -43,8 +45,13 @@ class SortModel extends \Illuminate\Database\Eloquent\Model
 }
 class Sort extends SortService
 {
-    public function email($value)
+    /**
+     * @param  string  $value
+     *
+     * @return Builder
+     */
+    public function email(string $value): Builder
     {
-        $this->builder->orderBy('email', $value);
+       return $this->builder->orderBy('email', $value);
     }
 }

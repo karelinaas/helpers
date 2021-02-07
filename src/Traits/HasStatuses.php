@@ -6,6 +6,7 @@ use Exception;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Arr;
+use ReflectionParameter;
 
 /**
  * Trait HasStatuses
@@ -16,22 +17,20 @@ use Illuminate\Support\Arr;
 trait HasStatuses
 {
     /**
-     * @param mixed ...$names
+     * @param array|string ...$names
      * @return bool
      * @throws Exception
      */
-    public function hasType(...$names){
-
+    public function hasType(...$names)
+    {
         if (!$this instanceof Model) {
             throw new Exception("Only applicable to model.");
         }
 
-        $names = is_array($names) ? Arr::flatten($names) : func_get_args();
+        $statuses = app('type')->whereIn('name', Arr::flatten($names))->pluck('id');
 
-        $statuses = app('type')->whereIn('name', $names)->pluck('id');
-
-        if ($statuses->isEmpty()){
-            $names = implode("|",$names);
+        if ($statuses->isEmpty()) {
+            $names = implode("|", $names);
             throw new Exception("The status `{$names}` is an invalid status.");
         }
 
@@ -39,7 +38,7 @@ trait HasStatuses
     }
 
     /**
-     * @param mixed ...$names
+     * @param array|string ...$names
      * @return bool
      * @throws Exception
      */
@@ -49,12 +48,10 @@ trait HasStatuses
             throw new Exception("Only applicable to model.");
         }
 
-        $names = is_array($names) ? Arr::flatten($names) : func_get_args();
+        $statuses = app('status')->whereIn('name', Arr::flatten($names))->pluck('id');
 
-        $statuses = app('status')->whereIn('name', $names)->pluck('id');
-
-        if ($statuses->isEmpty()){
-            $names = implode("|",$names);
+        if ($statuses->isEmpty()) {
+            $names = implode("|", $names);
             throw new Exception("The status `{$names}` is an invalid status.");
         }
 
@@ -63,19 +60,18 @@ trait HasStatuses
 
     /**
      * @param Builder $builder
-     * @param mixed ...$names
+     * @param array|string ...$names
      * @return Builder
      * @throws Exception
      */
     public function scopeCurrentStatus(Builder $builder, ...$names): Builder
     {
-        $names = is_array($names) ? Arr::flatten($names) : func_get_args();
+        $statuses = app('status')->whereIn('name', Arr::flatten($names))->pluck('id');
 
-        $statuses = app('status')->whereIn('name', $names)->pluck('id');
 
-        if ($statuses->isEmpty()){
-           $names = implode("|",$names);
-           throw new Exception("The status `{$names}` is an invalid status.");
+        if ($statuses->isEmpty()) {
+            $names = implode("|", $names);
+            throw new Exception("The status `{$names}` is an invalid status.");
         }
 
         return $builder->whereIn('status_id', $statuses);

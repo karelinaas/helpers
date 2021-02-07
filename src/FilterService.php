@@ -2,8 +2,7 @@
 
 namespace PhpCraftsman;
 
-use Illuminate\Database\Eloquent\Concerns\QueriesRelationships;
-use Illuminate\Database\Query\Builder;
+use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Http\Request;
 
 /**
@@ -15,22 +14,22 @@ use Illuminate\Http\Request;
 abstract class FilterService
 {
     /**
-     * @var Builder|QueriesRelationships $builder
+     * @var Builder $builder
      */
-    protected $builder;
+    protected Builder $builder;
 
     /**
      * @var Request $request
      */
-    protected $request;
+    protected Request $request;
 
     /**
      * FilterService constructor.
      *
-     * @param Builder|QueriesRelationships $builder
+     * @param Builder $builder
      * @param Request $request
      */
-    public function __construct($builder, Request $request)
+    public function __construct(Builder $builder, Request $request)
     {
         $this->builder = $builder;
         $this->request = $request;
@@ -40,9 +39,9 @@ abstract class FilterService
      * Метод для применения фильтров.
      * The function for applying filters.
      *
-     * @return Builder|QueriesRelationships
+     * @return Builder
      */
-    public function apply()
+    public function apply(): Builder
     {
         $this->prepareFiltering();
 
@@ -74,7 +73,6 @@ abstract class FilterService
      */
     protected function prepareFiltering()
     {
-
     }
 
     /**
@@ -83,7 +81,5 @@ abstract class FilterService
      */
     protected function passedFiltering()
     {
-
     }
 }
-

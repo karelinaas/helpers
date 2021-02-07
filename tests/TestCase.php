@@ -2,13 +2,10 @@
 
 namespace Tests;
 
-use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Foundation\Application;
 use Illuminate\Foundation\Testing\DatabaseMigrations;
 use Illuminate\Foundation\Testing\RefreshDatabase;
-use Illuminate\Support\Facades\Schema;
 use Orchestra\Testbench\TestCase as OrchestraTestCase;
-use Illuminate\Database\Capsule\Manager as Capsule;
 use PhpCraftsman\HelperBaseServiceProvider;
 
 /**
