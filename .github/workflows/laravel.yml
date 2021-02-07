@@ -34,11 +34,12 @@ jobs:
           mkdir -p database
           touch database/database.sqlite
 
-      - name: Execute tests (Unit and Feature tests) via PHPUnit
-        env:
-          DB_CONNECTION: sqlite
-          DB_DATABASE: database/database.sqlite
-        run: vendor/bin/phpunit
+      - name: PHPUnit Tests
+        uses: php-actions/phpunit@dynamic-docker
+        with:
+          bootstrap: vendor/autoload.php
+          configuration: test/phpunit.xml
+          args: --coverage-text
 
       - name: Dynamic Badges
         uses: Schneegans/dynamic-badges-action@v1.0.0
