@@ -15,7 +15,7 @@ jobs:
       - name: PHPStan
         uses: docker://oskarstark/phpstan-ga
         with:
-          args: analyse -l 5 -c /var/www/phpstan.neon
+          args: analyse -l 5 -c /github/workspace/phpstan.neon
 
   laravel-tests:
     name: PhpUnit
