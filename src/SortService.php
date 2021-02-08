@@ -2,8 +2,7 @@
 
 namespace PhpCraftsman;
 
-use Illuminate\Database\Eloquent\Concerns\QueriesRelationships;
-use Illuminate\Database\Query\Builder;
+use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Http\Request;
 
 /**
@@ -15,22 +14,22 @@ use Illuminate\Http\Request;
 abstract class SortService
 {
     /**
-     * @var Builder|QueriesRelationships $builder
+     * @var Builder $builder
      */
-    protected $builder;
+    protected Builder $builder;
 
     /**
      * @var Request $request
      */
-    protected $request;
+    protected Request $request;
 
     /**
      * SortService constructor.
      *
-     * @param Builder|QueriesRelationships $builder
+     * @param Builder $builder
      * @param Request $request
      */
-    public function __construct($builder, Request $request)
+    public function __construct(Builder $builder, Request $request)
     {
         $this->builder = $builder;
         $this->request = $request;
@@ -40,9 +39,9 @@ abstract class SortService
      * Метод для применения сортировки.
      * The function for applying sorting.
      *
-     * @return Builder|QueriesRelationships
+     * @return Builder
      */
-    public function apply()
+    public function apply(): Builder
     {
         $this->prepareSorting();
 
@@ -78,7 +77,6 @@ abstract class SortService
      */
     protected function prepareSorting()
     {
-
     }
 
     /**
@@ -87,7 +85,5 @@ abstract class SortService
      */
     protected function passedSorting()
     {
-
     }
 }
-

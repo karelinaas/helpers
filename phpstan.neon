@@ -1,0 +1,9 @@
+parameters:
+    paths:
+        - src
+        - tests
+        - database
+
+    # The level 8 is the highest level
+    level: 5
+

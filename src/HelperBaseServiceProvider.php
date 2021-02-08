@@ -23,7 +23,6 @@ class HelperBaseServiceProvider extends ServiceProvider
      */
     public function register()
     {
-
     }
 
     /**

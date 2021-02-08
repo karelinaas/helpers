@@ -2,7 +2,6 @@
 
 namespace Tests\Unit;
 
-use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Mockery;
 use PhpCraftsman\Models\Status;
@@ -56,10 +55,7 @@ class HasStatusTest extends TestCase
             ->with('status_id')
             ->andReturn(Status::where('name','process')->first()->id);
 
-        $this->assertTrue($mock->hasStatus([
-            'waiting',
-            'process',
-        ]));
+        $this->assertTrue($mock->hasStatus(['process','waiting']));
     }
 
 }
@@ -73,13 +69,3 @@ class EloquentStub extends \Illuminate\Database\Eloquent\Model
         return $this->belongsTo('Status');
     }
 }
-/*
-class Status extends \Illuminate\Database\Eloquent\Model
-{
-    use HasFactory;
-
-    protected static function newFactory()
-    {
-        return StatusFactory::new();
-    }
-}*/
