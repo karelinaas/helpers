@@ -29,7 +29,7 @@ jobs:
         run: php -r "file_exists('.env') || copy('.env.example', '.env');"
       - name: PhpVersion
         uses: shivammathur/setup-php@v2
-          with:
+        with:
             php-version: '7.4'
 
       - name: Create Database
