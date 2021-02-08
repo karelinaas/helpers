@@ -27,9 +27,10 @@ jobs:
       - uses: actions/checkout@v2
       - name: Copy .env
         run: php -r "file_exists('.env') || copy('.env.example', '.env');"
+
       - name: PhpVersion
         uses: shivammathur/setup-php@v2
-          with:
+        with:
             php-version: '7.4'
 
       - name: Create Database
@@ -37,20 +38,15 @@ jobs:
           mkdir -p database
           touch database/database.sqlite
 
-      - name: PHPUnit Tests
-        uses: graychen/phpunit-action@v1.0.0
-        with:
-          config: phpunit.xml
+      - name: Execute tests
+        run: vendor/bin/phpunit
 
-      - name: Dynamic Badges
-        uses: Schneegans/dynamic-badges-action@v1.0.0
-
-      - name: Create Awesome Badge
-        uses: schneegans/dynamic-badges-action@v1.0.0
-        with:
-          auth: ${{ secrets.GIST_SECRET }}
-          gistID: 60fb64f5a477ebb0ebaff3e144df3917
-          filename: test.json
-          label: Hello
-          message: World
-          color: orange
+#      - name: Create Awesome Badge
+#        uses: schneegans/dynamic-badges-action@v1.0.0
+#        with:
+#          auth: ${{ secrets.GIST_SECRET }}
+#          gistID: 60fb64f5a477ebb0ebaff3e144df3917
+#          filename: test.json
+#          label: Hello
+#          message: World
+#          color: orange
