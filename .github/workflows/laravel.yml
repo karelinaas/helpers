@@ -39,7 +39,7 @@ jobs:
           touch database/database.sqlite
 
       - name: Execute tests
-        run: vendor/bin/phpunit
+        run: ./vendor/bin/phpunit
 
 #      - name: Create Awesome Badge
 #        uses: schneegans/dynamic-badges-action@v1.0.0
