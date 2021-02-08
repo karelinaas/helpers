@@ -34,11 +34,9 @@ jobs:
           touch database/database.sqlite
 
       - name: PHPUnit Tests
-        uses: php-actions/phpunit@dynamic-docker
+        uses: graychen/phpunit-action@v1.0.0
         with:
-#          bootstrap: vendor/autoload.php
-          configuration: phpunit.xml
-          args: --coverage-text
+          config: custom/path/to/phpunit.xml
 
       - name: Dynamic Badges
         uses: Schneegans/dynamic-badges-action@v1.0.0
