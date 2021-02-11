@@ -2,81 +2,71 @@
 
 namespace Tests\Unit;
 
+use Exception;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Mockery;
+use PhpCraftsman\Models\Status;
 use PhpCraftsman\Models\Type;
-use PhpCraftsman\Traits\HasStatuses;
+use PhpCraftsman\Traits\HasTypes;
+use Tests\database\Models\TestModel;
 use Tests\TestCase;
 
 class HasTypeTest extends TestCase
 {
     use RefreshDatabase;
 
+    /**
+     * @var TestModel
+     */
+    public TestModel $model;
+
     protected function setUp(): void
     {
         parent::setUp();
 
         Type::factory()->create([
-            'name' => 'export',
+            'name'  => 'export',
             'title' => 'Экспорт',
         ]);
 
         Type::factory()->create([
-            'name' => 'import',
+            'name'  => 'import',
             'title' => 'Импорт',
         ]);
 
         $this->app->instance('type', Type::all());
+
+        $this->model = TestModel::create([
+            'name'      => 'name',
+            'type_id' => Type::where('name', 'export')->first()->id
+        ]);
     }
 
     /**
      * A basic test example.
      *
      * @return void
+     * @throws Exception
      */
-    public function testHasStatus()
+    public function testHasType()
     {
-        $mock = Mockery::mock(Stub::class)->makePartial();
-
-        $mock->shouldReceive('getAttribute')
-            ->with('type_id')
-            ->andReturn(Type::where('name','export')->first()->id);
-
-        $this->assertTrue($mock->hasType('export'));
+        $this->assertTrue($this->model->hasType('export'));
     }
 
     /**
      * A basic test example.
      *
      * @return void
+     * @throws Exception
      */
-    public function testHasStatuses()
+    public function testHasTypes()
     {
-        $mock = Mockery::mock(Stub::class)->makePartial();
-
-        $mock->shouldReceive('getAttribute')
-            ->with('type_id')
-            ->andReturn(Type::where('name','import')->first()->id);
-
-        $this->assertTrue($mock->hasType([
+        $this->assertTrue($this->model->hasType([
             'export',
             'import',
         ]));
     }
 
-}
-
-class Stub extends Model
-{
-    use HasStatuses;
-
-    /**
-     * @return BelongsTo
-     */
-    public function type(): BelongsTo
-    {
-        return $this->belongsTo(Type::class);
-    }
 }
