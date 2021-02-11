@@ -2,6 +2,7 @@
 
 namespace Tests\Unit;
 
+use Exception;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Foundation\Testing\RefreshDatabase;
@@ -47,6 +48,7 @@ class HasTypeTest extends TestCase
      * A basic test example.
      *
      * @return void
+     * @throws Exception
      */
     public function testHasType()
     {
@@ -57,6 +59,7 @@ class HasTypeTest extends TestCase
      * A basic test example.
      *
      * @return void
+     * @throws Exception
      */
     public function testHasTypes()
     {

@@ -2,6 +2,7 @@
 
 namespace Tests\Unit;
 
+use Exception;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use PhpCraftsman\Models\Status;
 use Tests\database\Models\TestModel;
@@ -39,6 +40,7 @@ class HasStatusTest extends TestCase
      * A basic test example.
      *
      * @return void
+     * @throws Exception
      */
     public function testHasStatus()
     {
@@ -49,6 +51,7 @@ class HasStatusTest extends TestCase
      * A basic test example.
      *
      * @return void
+     * @throws Exception
      */
     public function testHasStatuses()
     {
@@ -59,6 +62,7 @@ class HasStatusTest extends TestCase
      * A basic test example.
      *
      * @return void
+     * @throws Exception
      */
     public function testSetStatus()
     {
