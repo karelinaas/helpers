@@ -3,14 +3,18 @@
 namespace Tests\Unit;
 
 use Illuminate\Foundation\Testing\RefreshDatabase;
-use Mockery;
 use PhpCraftsman\Models\Status;
-use PhpCraftsman\Traits\HasStatuses;
+use Tests\database\Models\TestModel;
 use Tests\TestCase;
 
 class HasStatusTest extends TestCase
 {
     use RefreshDatabase;
+
+    /**
+     * @var TestModel
+     */
+    public TestModel $model;
 
     protected function setUp(): void
     {
@@ -19,11 +23,16 @@ class HasStatusTest extends TestCase
         Status::factory()->create();
 
         Status::factory()->create([
-            'name' => 'process',
+            'name'  => 'process',
             'title' => 'В процессе',
         ]);
 
         $this->app->instance('status', Status::all());
+
+        $this->model = TestModel::create([
+            'name' => 'name',
+            'status_id' => Status::where('name', 'process')->first()->id,
+        ]);
     }
 
     /**
@@ -33,13 +42,7 @@ class HasStatusTest extends TestCase
      */
     public function testHasStatus()
     {
-        $mock = Mockery::mock(EloquentStub::class)->makePartial();
-
-        $mock->shouldReceive('getAttribute')
-            ->with('status_id')
-            ->andReturn(Status::where('name','waiting')->first()->id);
-
-        $this->assertTrue($mock->hasStatus('waiting'));
+        $this->assertTrue($this->model->hasStatus('process'));
     }
 
     /**
@@ -49,23 +52,19 @@ class HasStatusTest extends TestCase
      */
     public function testHasStatuses()
     {
-        $mock = Mockery::mock(EloquentStub::class)->makePartial();
-
-        $mock->shouldReceive('getAttribute')
-            ->with('status_id')
-            ->andReturn(Status::where('name','process')->first()->id);
-
-        $this->assertTrue($mock->hasStatus(['process','waiting']));
+        $this->assertTrue($this->model->hasStatus(['process', 'waiting']));
     }
 
-}
-
-class EloquentStub extends \Illuminate\Database\Eloquent\Model
-{
-    use HasStatuses;
-
-    public function status()
+    /**
+     * A basic test example.
+     *
+     * @return void
+     */
+    public function testSetStatus()
     {
-        return $this->belongsTo('Status');
+        $this->assertTrue($this->model->hasStatus('process'));
+        $this->assertTrue($this->model->setStatus('waiting'));
+
     }
+
 }
