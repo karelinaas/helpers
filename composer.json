@@ -1,10 +1,10 @@
 {
-  "name": "phpcraftsman/helpers",
+  "name": "cashforapp/helpers",
   "type": "library",
   "description": "Assistant package",
   "license": "GPL-3.0",
   "minimum-stability": "stable",
-  "homepage": "https://github.com/phpcraftsman/helpers",
+  "homepage": "https://github.com/cashforapp/helpers",
   "authors": [
     {
       "name": "Sergey Andrianov",
